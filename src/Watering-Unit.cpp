@@ -2,6 +2,7 @@
 
 #define INPUT_PIN 33
 #define PUMP_PIN 32
+#define THRESHOLD_MOISTURE 40.0
 
 float vol, moisture;
 
@@ -14,8 +15,6 @@ void	setup(void)
 	M5.Lcd.setRotation(1);
 	M5.Lcd.setTextFont(2);
 	M5.Lcd.setBrightness(255);
-	disableCore0WDT();
-	disableCore1WDT();
 }
 
 void	loop(void)
@@ -24,29 +23,34 @@ void	loop(void)
 	float		adc;
 
 	M5.update();
-	if (M5.BtnB.wasPressed())
-	{
-		pumpOn = !pumpOn;
-		digitalWrite(PUMP_PIN, pumpOn ? HIGH : LOW);
-		if (pumpOn)
-		{
-			Serial.println("Pump ON");
-			M5.Lcd.fillScreen(RED);
-			M5.Lcd.setTextColor(WHITE, RED);
-			M5.Lcd.drawString("Pump ON", 40, 50);
-		}
-		else
-		{
-			Serial.println("Pump OFF");
-			M5.Lcd.fillScreen(BLACK);
-			M5.Lcd.setTextColor(WHITE, BLACK);
-			M5.Lcd.drawString("Pump OFF", 40, 50);
-		}
-	}
 	adc = analogRead(INPUT_PIN);
 	vol = (adc + 1) * 3.3 / (4095 + 1);
 	moisture = 100 * (1.65 - vol) / (1.65 - 1.2);
-	Serial.printf("Voltage: %2.2fV  Moisture: %0.2f%%\r\n", vol, moisture);
+	Serial.printf("電圧: %2.2fV  土壌水分量: %0.2f%%\r\n", vol, moisture);
+	if (moisture <= THRESHOLD_MOISTURE)
+	{
+		if (!pumpOn)
+		{
+			pumpOn = true;
+			digitalWrite(PUMP_PIN, HIGH);
+			Serial.println("ポンプオン");
+			M5.Lcd.fillScreen(RED);
+			M5.Lcd.setTextColor(WHITE, RED);
+			M5.Lcd.drawString("Pump On", 40, 50);
+		}
+	}
+	else
+	{
+		if (pumpOn)
+		{
+			pumpOn = false;
+			digitalWrite(PUMP_PIN, LOW);
+			Serial.println("ポンプオフ");
+			M5.Lcd.fillScreen(BLACK);
+			M5.Lcd.setTextColor(WHITE, BLACK);
+			M5.Lcd.drawString("Pump Off", 40, 50);
+		}
+	}
 	M5.Lcd.setCursor(0, 0);
 	M5.Lcd.setTextColor(WHITE, BLACK);
 	M5.Lcd.printf("Voltage: %2.2fV\n", vol);
