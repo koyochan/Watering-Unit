@@ -21,7 +21,9 @@ void	loop(void)
 {
 	static bool	pumpOn = false;
 	float		adc;
+	int			flag;
 
+	flag = 0;
 	M5.update();
 	adc = analogRead(INPUT_PIN);
 	vol = (adc + 1) * 3.3 / (4095 + 1);
@@ -55,5 +57,6 @@ void	loop(void)
 	M5.Lcd.setTextColor(WHITE, BLACK);
 	M5.Lcd.printf("Voltage: %2.2fV\n", vol);
 	M5.Lcd.printf("Moisture: %0.2f%%\n", moisture);
+	M5.Lcd.printf("Number of waterings: %2.2fV\n", vol);
 	delay(1000);
 }
