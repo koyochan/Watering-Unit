@@ -1,0 +1,10 @@
+#ifndef ENABLE_H
+# define ENABLE_H
+
+# define ENABLE_GRAPH_DISPLAY 1
+# define ENABLE_VISUAL_EFFECT 1
+# define ENABLE_SOUND_ALERT 1
+# define ENABLE_WIFI_UPLOAD 0
+# define ENABLE_LINE_NOTIFY 0
+
+#endif
