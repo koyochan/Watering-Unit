@@ -24,4 +24,7 @@ void	loop(void)
 #if ENABLE_LINE_NOTIFY
 	void notifyLine(float vol, float moisture);
 #endif
+#if ENABLE_MANUAL_CONTROL
+    manualControl();
+#endif
 }

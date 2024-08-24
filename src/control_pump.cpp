@@ -3,21 +3,6 @@
 #include "../lib/image.h"
 #include "../lib/tone_data.h"
 
-void drawImage(int x, int y, const unsigned char *image, int width, int height) {
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            uint16_t color = pgm_read_word(&(image[i * width + j]));
-            M5.Lcd.drawPixel(x + j, y + i, color);
-        }
-    }
-}
-
-void playTone() {
-    for (int i = 0; i < sizeof(tone_data) / sizeof(tone_data[0]); i++) {
-        M5.Lcd.write(tone_data[i]);
-    }
-}
-
 void controlPump(float moisture, int &number) {
     static bool pumpOn = false;
 
