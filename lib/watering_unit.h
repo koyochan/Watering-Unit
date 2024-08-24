@@ -7,7 +7,6 @@
 
 # include <HTTPClient.h>
 # include <M5Unified.h>
-# include <WiFi.h>
 
 void	initializeSystem(void);
 void	measureAndDisplayMoisture(float &vol, float &moisture);
