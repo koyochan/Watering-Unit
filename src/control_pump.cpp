@@ -3,7 +3,7 @@
 #include "../lib/image.h"
 #include "../lib/tone_data.h"
 
-void drawImage(int x, int y, const uint16_t *image, int width, int height) {
+void drawImage(int x, int y, const unsigned char *image, int width, int height) {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             uint16_t color = pgm_read_word(&(image[i * width + j]));
