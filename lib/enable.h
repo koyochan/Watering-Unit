@@ -1,9 +1,9 @@
 #ifndef ENABLE_H
 # define ENABLE_H
 
-# define ENABLE_VISUAL_EFFECT 1
-# define ENABLE_SOUND_ALERT 1
-# define ENABLE_GRAPH_DISPLAY 1
+# define ENABLE_VISUAL_EFFECT 0
+# define ENABLE_SOUND_ALERT 0
+# define ENABLE_GRAPH_DISPLAY 0
 # define ENABLE_LINE_NOTIFY 0
 
 #endif
